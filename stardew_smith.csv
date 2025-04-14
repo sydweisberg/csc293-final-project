@@ -1,0 +1,34 @@
+Timestamp,gender,sexuality,age,relationship,hobbies,activity,personality,season,playtime,non_marriage_candidate,marriage_candiate
+4/10/2025 14:37:56,Female,Lesbian,21,Dating,Sports,Fishing,Introvert,Fall,1,Willy,Abigail
+4/10/2025 14:37:57,Female,Lesbian,22,Dating,Arts,Decorating Farm,Extrovert,Summer,1,Willy,Haley
+4/10/2025 14:38:26,Female,Lesbian,20,Single,Arts,Exploring,Ambivert,Fall,1,Caroline,Haley
+4/10/2025 14:40:33,Female,Straight,19,Dating,Literature,Fishing,Extrovert,Winter,1,Robin,Elliot
+4/10/2025 14:42:17,Female,Lesbian,23,Single,Music,Farming,Ambivert,Spring,1,Wizard,Haley
+4/10/2025 14:47:37,Non-binary,Lesbian,21,Dating,Music,Mining,Introvert,Spring,1,Marnie,Haley
+4/10/2025 14:55:59,Non-binary,Other,26,Dating,Literature,Farming,Ambivert,Spring,5,Leo,Krobus
+4/10/2025 15:08:02,Female,Bisexual,18,Dating,Sports,Farming,Ambivert,Spring,5,Robin,Leah
+4/10/2025 15:08:49,Other,Bisexual,21,Single,Cooking,Farming,Ambivert,Spring,2,Evelyn,Elliot
+4/10/2025 15:13:58,Female,Straight,22,Single,Sports,Talking to NPCs,Introvert,Summer,5,Linus,Sebastian
+4/10/2025 15:29:20,Female,Bisexual,20,Dating,Music,Fishing,Ambivert,Fall,4,Robin,Harvey
+4/10/2025 15:40:20,Female,Lesbian,21,Single,Arts,Decorating Farm,Introvert,Fall,5,Robin,Haley
+4/10/2025 15:49:46,Non-binary,Other,16,Single,Music,Exploring,Introvert,Summer,1,Pam,Leah
+4/10/2025 16:05:58,Female,Other,21,Dating,Arts,Fishing,Introvert,Winter,2,Evelyn,Penny
+4/10/2025 16:16:41,Female,Lesbian,18,Single,Literature,Fishing,Introvert,Spring,1,Robin,Haley
+4/10/2025 16:34:05,Non-binary,Lesbian,19,Single,Music,Exploring,Extrovert,Fall,1,Demetrius,Sebastian
+4/10/2025 16:35:33,Female,Lesbian,21,Dating,Arts,Mining,Introvert,Fall,5,Evelyn,Leah
+4/10/2025 16:39:42,Female,Lesbian,19,Single,Music,Fishing,Ambivert,Summer,7,Leo,Haley
+4/10/2025 17:31:01,Female,Bisexual,19,Single,Cooking,Exploring,Ambivert,Spring,1,Wizard,Abigail
+4/10/2025 18:27:35,Non-binary,Lesbian,21,Dating,Arts,Fishing,Ambivert,Spring,2,Linus,Sebastian
+4/10/2025 19:48:24,Male,Straight,21,Single,Music,Fishing,Introvert,Spring,14,Evelyn,Alex
+4/10/2025 22:23:21,Female,Lesbian,18,Dating,Literature,Decorating Farm,Extrovert,Fall,2,Pam,Penny
+4/10/2025 22:26:54,Female,Lesbian,20,Dating,Cooking,Fishing,Extrovert,Fall,5,Robin,Leah
+4/10/2025 22:41:03,Male,Straight,18,Married,Literature,Fishing,Ambivert,Spring,1,Robin,Abigail
+4/10/2025 22:41:18,Non-binary,Bisexual,23,Single,Arts,Fishing,Extrovert,Summer,1,Willy,Haley
+4/10/2025 22:43:42,Female,Other,18,Single,Music,Talking to NPCs,Ambivert,Spring,0,Robin,Leah
+4/10/2025 22:44:46,Female,Bisexual,22,Single,Music,Exploring,Ambivert,Fall,3,Willy,Maru
+4/10/2025 22:56:55,Female,Bisexual,20,Other,Music,Mining,Introvert,Fall,6,Robin,Haley
+4/11/2025 1:57:10,Female,Lesbian,24,Dating,Literature,Mining,Introvert,Fall,2,Linus,Leah
+4/11/2025 12:34:33,Female,Lesbian,21,Other,Cooking,Decorating Farm,Introvert,Spring,5,Robin,Haley
+4/11/2025 16:53:53,Male,Gay,19,Single,Music,Fishing,Ambivert,Fall,1,Linus,Harvey
+4/11/2025 20:28:25,Female,Bisexual,25,Dating,Cooking,Fishing,Ambivert,Spring,5,Jodi,Sam
+4/12/2025 6:22:00,Female,Bisexual,21,Dating,Arts,Decorating Farm,Ambivert,Fall,7,Linus,Sebastian
