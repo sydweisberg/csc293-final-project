@@ -13,3 +13,18 @@ stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(f
 stardew_data <- rbind(stardew_all, stardew_smith)
 ```
 
+```{r}
+ggplot(data = stardew_data, aes(x = gender, fill = from)) + geom_bar() + labs(title = "Gender Identity Distribution", x = "Gender", y = "Count")
+```
+```{r}
+ggplot(data = stardew_data, aes(x = marriage_candidate, fill = hobbies)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + labs(title = "Marriage Choice By Hobbies", x = "Marriage Choice", y = "Count")
+```
+
+```{r}
+ggplot(data = stardew_data, aes(x = marriage_candidate, fill = personality)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + labs(title = "Marriage Choice By Personality", x = "Personality", y = "Count")
+```
+```{r}
+ggplot(data = stardew_data, aes(x=age, color=gender)) +
+  geom_density()
+```
+
