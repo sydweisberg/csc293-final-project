@@ -14,6 +14,7 @@ stardew_data <- rbind(stardew_all, stardew_smith)
 ```
 
 ```{r}
+library(ggplot2)
 ggplot(data = stardew_data, aes(x = gender, fill = from)) + geom_bar() + labs(title = "Gender Identity Distribution", x = "Gender", y = "Count")
 ```
 ```{r}
@@ -25,6 +26,6 @@ ggplot(data = stardew_data, aes(x = marriage_candidate, fill = personality)) + g
 ```
 ```{r}
 ggplot(data = stardew_data, aes(x=age, color=gender)) +
-  geom_density()
+  geom_freqpoly()
 ```
 
