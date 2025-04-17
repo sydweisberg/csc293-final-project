@@ -4,3 +4,11 @@ format: pdf
 editor: visual
 ---
 
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+stardew_all <- read.csv("stardew_all.csv") |> select(!Timestamp) |> mutate(from = "All")
+stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(from = "Smith")
+
+stardew_data <- rbind(stardew_all, stardew_smith)
+```
