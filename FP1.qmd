@@ -12,3 +12,11 @@ stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(f
 
 stardew_data <- rbind(stardew_all, stardew_smith)
 ```
+
+```{r}
+library(ISLR2)
+library(leaps)
+
+regfit.full <- regsubsets(marriage_candiate ~ ., stardew_data)
+```
+
