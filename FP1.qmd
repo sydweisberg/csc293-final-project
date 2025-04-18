@@ -32,3 +32,22 @@ library(leaps)
 
 regfit.full <- regsubsets(marriage_candiate ~ ., stardew_data)
 ```
+
+```{r}
+# Emma's KNN
+# predicts right 25%, so not ideal
+library(class)
+X <- model.matrix(~ sexuality + non_marriage_candidate + gender + from - 1, data = stardew_data)
+
+X <- cbind(X, playtime = as.numeric(stardew_data$playtime))
+
+# Split encoded matrix based on your indices
+train.X <- X[indices, ]
+test.X <- X[-indices, ]
+train_marriage <- stardew_data$marriage_candidate[indices]
+set.seed(1)
+knn.pred <- knn(train.X, test.X, train_marriage, k = 7)
+table(knn.pred, test_marriage)
+mean(knn.pred == test_marriage)
+```
+

@@ -19,4 +19,33 @@ test_data <- stardew_data[-indices,] # use all the other ones for testing
 test_marriage <- stardew_data$marriage_candidate[-indices] # get true marraige candidates for testing
 
 ```
+```{r}
+library(class)
+X <- model.matrix(~ sexuality + non_marriage_candidate + gender + from - 1, data = stardew_data)
+
+X <- cbind(X, playtime = as.numeric(stardew_data$playtime))
+
+# Split encoded matrix based on your indices
+train.X <- X[indices, ]
+test.X <- X[-indices, ]
+train_marriage <- stardew_data$marriage_candidate[indices]
+set.seed(1)
+knn.pred <- knn(train.X, test.X, train_marriage, k = 7)
+table(knn.pred, test_marriage)
+mean(knn.pred == test_marriage)
+```
+```{r}
+chisq.test(table(stardew_data$sexuality, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$gender, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$age, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$relationship, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$hobbies, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$activity, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$personality, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$season, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$playtime, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$non_marriage_candidate, stardew_data$marriage_candidate))
+chisq.test(table(stardew_data$from, stardew_data$marriage_candidate))
+```
+
 
