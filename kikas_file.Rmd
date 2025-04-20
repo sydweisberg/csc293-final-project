@@ -1,0 +1,68 @@
+---
+title: "Untitled"
+output: html_document
+date: "2025-04-20"
+---
+```{r}
+# reading in csvs and creating df
+library(tidyverse)
+
+stardew_all <- read.csv("stardew_all.csv") |> select(!Timestamp) |> mutate(from = "All")
+stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(from = "Smith")
+
+stardew_data <- rbind(stardew_all, stardew_smith)
+```
+```{r}
+# separating the data into train and test data
+set.seed(1) # set seed
+
+indices <- sample(seq(118), 82) # find 82 random indices
+
+train <- stardew_data[indices,] # use those 100 indices for training data
+
+test_data <- stardew_data[-indices,] # use all the other ones for testing
+test_marriage <- stardew_data$marriage_candidate[-indices] # get true marraige candidates for testing
+```
+### Logistic Regression
+```{r}
+library(nnet)
+train <- indices
+lr_model <- multinom(marriage_candidate ~ sexuality + gender, data = stardew_data, subset = train)
+summary(lr_model)
+```
+```{r}
+multinom.probs <- predict(lr_model, test_data, type = "class")
+multinom.probs
+```
+```{r}
+mean(multinom.probs == test_data$marriage_candidate)
+```
+### LDA
+```{r}
+library(MASS)
+lda.fit <- lda(marriage_candidate ~ sexuality + gender, data = stardew_data, subset = train)
+lda.fit
+```
+```{r}
+lda.pred <- predict(lda.fit, test_data)
+lda.class <- lda.pred$class
+table(lda.class, test_data$marriage_candidate)
+```
+```{r}
+mean(lda.class == test_data$marriage_candidate)
+```
+### Naive Bayes
+```{r}
+library(e1071)
+nb.fit <- naiveBayes(marriage_candidate ~ gender + sexuality, data = stardew_data, subset = train)
+nb.fit
+```
+
+```{r}
+nb.class <- predict(nb.fit, test_data)
+table(nb.class, test_data$marriage_candidate)
+```
+```{r}
+mean(nb.class == test_data$marriage_candidate)
+```
+
