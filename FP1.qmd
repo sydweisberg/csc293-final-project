@@ -69,4 +69,30 @@ table(predictions, test_marriage)
 mean(predictions == test_marriage)
 
 ```
+```{r}
+# Molly's QDA - predicts 16.7% with playtime as predictor and 19.4% with age as predictor
+library(MASS)
+#because maru only has one observation, there is no way to train the model how to predict it. therefore, we drop the maru factor from our data
+maru_omitted <- train |>
+  filter(as.character(marriage_candidate) != "Maru")
+maru_omitted$marriage_candidate <- droplevels(maru_omitted$marriage_candidate)
+
+#fitting the qda model
+
+#since we can't compute covariance matrices with categorical data and we have so little observations in each group of our training data, we have to use our 2 numeric variables for the models
+qda.fit.playtime <- qda(marriage_candidate ~ playtime, data = maru_omitted)
+qda.fit.age <- qda(marriage_candidate ~ age, data = maru_omitted)
+
+#making our predictions
+qda.playtime.pred <- predict(qda.fit.playtime, test_data)$class
+qda.age.pred <- predict(qda.fit.age, test_data)$class
+
+table(qda.playtime.pred, test_data$marriage_candidate)
+table(qda.age.pred, test_data$marriage_candidate)
+
+#have to switch them to characters cause R doesn't like comparing factors
+mean(as.character(qda.playtime.pred) == as.character(test_data$marriage_candidate))
+mean(as.character(qda.age.pred) == as.character(test_data$marriage_candidate))
+
+```
 
