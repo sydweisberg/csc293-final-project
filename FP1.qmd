@@ -41,7 +41,6 @@ X <- model.matrix(~ sexuality + non_marriage_candidate + gender + from - 1, data
 
 X <- cbind(X, playtime = as.numeric(stardew_data$playtime))
 
-# Split encoded matrix based on your indices
 train.X <- X[indices, ]
 test.X <- X[-indices, ]
 train_marriage <- stardew_data$marriage_candidate[indices]
@@ -60,8 +59,7 @@ test_data <- stardew_data[-indices, ]
 
 #converting characters to factor
 stardew_data[] <- lapply(stardew_data, function(x) {
-  if (is.character(x)) factor(x) 
-  else x
+  if (is.character(x)) factor(x) else x
 })
 
 marriage <- ctree(marriage_candidate ~ from + personality, data = train_data)
@@ -69,5 +67,6 @@ predictions <- predict(marriage, newdata = test_data)
 
 table(predictions, test_marriage)
 mean(predictions == test_marriage)
+
 ```
 
