@@ -51,7 +51,7 @@ mean(knn.pred == test_marriage)
 ```
 
 ```{r}
-# Caroline's Decision Tree
+# Caroline's Decision Tree (predicts 19.4%)
 library(party)
 
 train_data <- stardew_data[indices, ]
