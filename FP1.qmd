@@ -30,7 +30,7 @@ test_marriage <- stardew_data$marriage_candidate[-indices] # get true marraige c
 library(ISLR2)
 library(leaps)
 
-regfit.full <- regsubsets(marriage_candiate ~ ., stardew_data)
+regfit.full <- regsubsets(marriage_candidate ~ ., stardew_data)
 ```
 
 ```{r}
@@ -49,5 +49,25 @@ set.seed(1)
 knn.pred <- knn(train.X, test.X, train_marriage, k = 7)
 table(knn.pred, test_marriage)
 mean(knn.pred == test_marriage)
+```
+
+```{r}
+# Caroline's Decision Tree
+library(party)
+
+train_data <- stardew_data[indices, ]
+test_data <- stardew_data[-indices, ]
+
+#converting characters to factor
+stardew_data[] <- lapply(stardew_data, function(x) {
+  if (is.character(x)) factor(x) 
+  else x
+})
+
+marriage <- ctree(marriage_candidate ~ from + personality, data = train_data)
+predictions <- predict(marriage, newdata = test_data)
+
+table(predictions, test_marriage)
+mean(predictions == test_marriage)
 ```
 
