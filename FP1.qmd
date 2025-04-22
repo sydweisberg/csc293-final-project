@@ -41,7 +41,6 @@ selected_model <- suppressWarnings(stepAIC(model, ~ . ^ 2))
 selected_model
 ```
 
-
 ```{r}
 # Emma's KNN
 # predicts right 25%, so not ideal
@@ -125,6 +124,7 @@ accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 accuracy_percent <- accuracy * 100
 print(paste("Accuracy:", round(accuracy_percent, 2), "%"))
 ```
+
 ```{r}
 # Syd's Multinomial Logistic Regression Function
 predict_marriage_candidate <- function(Gender, Sexuality, Relationship, Hobbies, Activity, Season, Playtime, Non_marriage_candidate) {
@@ -146,5 +146,5 @@ new_data <- data.frame(gender = Gender,
 
 ```{r}
 # Change up the parameters to make a prediction!
-predict_marriage_candidate("Female", "Lesbian", "Dating", "Arts", "Exploring", "Spring", 0, "Wizard")
+predict_marriage_candidate("Female", "Lesbian", "Single", "Cooking", "Fishing", "Summer", 2, "Robin")
 ```
