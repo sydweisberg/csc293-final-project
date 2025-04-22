@@ -30,8 +30,7 @@ test_marriage <- stardew_data$marriage_candidate[-indices] # get true marraige c
 # Sydney's Best Subsets
 library(MASS)
 
-stardew <- stardew_data |>
-  select(!from)
+stardew <- dplyr::select(stardew_data, -from)
 
 model <- polr(factor(marriage_candidate) ~ ., data = stardew)
 
@@ -105,4 +104,47 @@ table(qda.age.pred, test_data$marriage_candidate)
 mean(as.character(qda.playtime.pred) == as.character(test_data$marriage_candidate))
 mean(as.character(qda.age.pred) == as.character(test_data$marriage_candidate))
 
+```
+
+```{r}
+# Syd's Multinomial Logistic Regression
+# 21.21% accurate
+library(nnet)
+
+no_from_train <- dplyr::select(train_data, -from)
+no_from_test <- dplyr::select(test_data, -from)
+no_from_test <- dplyr::filter(no_from_test, !(non_marriage_candidate %in% c("Dwarf", "Vincent")))
+
+logistic_model <- multinom(factor(marriage_candidate) ~ gender + sexuality + relationship + hobbies + activity + season + 
+    playtime + non_marriage_candidate, data = no_from_train)
+
+predicted_classes <- predict(logistic_model, newdata = no_from_test)
+
+confusion_matrix <- table(Predicted = predicted_classes, Actual = no_from_test$marriage_candidate)
+accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
+accuracy_percent <- accuracy * 100
+print(paste("Accuracy:", round(accuracy_percent, 2), "%"))
+```
+```{r}
+# Syd's Multinomial Logistic Regression Function
+predict_marriage_candidate <- function(Gender, Sexuality, Relationship, Hobbies, Activity, Season, Playtime, Non_marriage_candidate) {
+new_data <- data.frame(gender = Gender,
+                       sexuality = Sexuality,
+                       relationship = Relationship,
+                       hobbies = Hobbies,
+                       activity = Activity,
+                       season = Season,
+                       playtime = Playtime,
+                       non_marriage_candidate = Non_marriage_candidate)
+
+
+
+  prediction <- predict(logistic_model, newdata = new_data, type = "class")
+  return(prediction)
+}
+```
+
+```{r}
+# Change up the parameters to make a prediction!
+predict_marriage_candidate("Female", "Lesbian", "Dating", "Arts", "Exploring", "Spring", 0, "Wizard")
 ```
