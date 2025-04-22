@@ -54,7 +54,7 @@ mean(lda.class == test_data$marriage_candidate)
 ### Naive Bayes
 ```{r}
 library(e1071)
-nb.fit <- naiveBayes(marriage_candidate ~ gender + sexuality, data = stardew_data, subset = train)
+nb.fit <- naiveBayes(marriage_candidate ~ gender + sexuality + age, data = stardew_data, subset = train)
 nb.fit
 ```
 
