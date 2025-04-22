@@ -27,11 +27,21 @@ test_marriage <- stardew_data$marriage_candidate[-indices] # get true marraige c
 ```
 
 ```{r}
-library(ISLR2)
-library(leaps)
+# Sydney's Best Subsets
+library(MASS)
 
-regfit.full <- regsubsets(marriage_candidate ~ ., stardew_data)
+stardew <- stardew_data |>
+  select(!from)
+
+model <- polr(factor(marriage_candidate) ~ ., data = stardew)
+
+selected_model <- suppressWarnings(stepAIC(model, ~ . ^ 2))
 ```
+
+```{r}
+selected_model
+```
+
 
 ```{r}
 # Emma's KNN
@@ -69,6 +79,7 @@ table(predictions, test_marriage)
 mean(predictions == test_marriage)
 
 ```
+
 ```{r}
 # Molly's QDA - predicts 16.7% with playtime as predictor and 19.4% with age as predictor
 library(MASS)
@@ -95,4 +106,3 @@ mean(as.character(qda.playtime.pred) == as.character(test_data$marriage_candidat
 mean(as.character(qda.age.pred) == as.character(test_data$marriage_candidate))
 
 ```
-
