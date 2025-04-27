@@ -12,6 +12,8 @@ stardew_all <- read.csv("stardew_all.csv") |> select(!Timestamp) |> mutate(from 
 stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(from = "Smith")
 
 stardew_data <- rbind(stardew_all, stardew_smith)
+
+stardew_data <- stardew_data |> filter(gender != "Other")
 ```
 
 ```{r}
@@ -62,13 +64,13 @@ mean(knn.pred == test_marriage)
 # Caroline's Decision Tree (predicts 19.4%)
 library(party)
 
-train_data <- stardew_data[indices, ]
-test_data <- stardew_data[-indices, ]
-
 #converting characters to factor
 stardew_data[] <- lapply(stardew_data, function(x) {
   if (is.character(x)) factor(x) else x
 })
+
+train_data <- stardew_data[indices, ]
+test_data <- stardew_data[-indices, ]
 
 marriage <- ctree(marriage_candidate ~ from + personality, data = train_data)
 predictions <- predict(marriage, newdata = test_data)
