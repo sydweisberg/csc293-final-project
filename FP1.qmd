@@ -161,4 +161,45 @@ bag.stardew <- randomForest(marriage_candidate ~ ., data = train, mtry = 11, imp
 yhat.bag <- predict(bag.stardew, newdata = test_data)
 mean(yhat.bag == test_data$marriage_candidate)
 ```
+```{r}
+# backward selection
+full.model <- multinom(marriage_candidate ~ ., data = train)
+# stepAIC(full.model, direction = "backward")
+selected_model <- multinom(marriage_candidate ~ gender + sexuality +relationship + hobbies + personality + season + from, data = train)
+yhat.selected <- predict(selected_model, newdata = test_data)
+mean(yhat.selected == test_data$marriage_candidate)
 
+```
+
+
+```{r}
+# Logistic regression
+library(nnet)
+train <- indices
+lr_model <- multinom(marriage_candidate ~ sexuality + gender, data = stardew_data, subset = train)
+summary(lr_model)
+multinom.probs <- predict(lr_model, test_data, type = "class")
+multinom.probs
+mean(multinom.probs == test_data$marriage_candidate)
+```
+
+```{r}
+# LDA
+library(MASS)
+lda.fit <- lda(marriage_candidate ~ sexuality + gender, data = stardew_data, subset = train)
+lda.fit
+lda.pred <- predict(lda.fit, test_data)
+lda.class <- lda.pred$class
+table(lda.class, test_data$marriage_candidate)
+mean(lda.class == test_data$marriage_candidate)
+```
+
+```{r}
+# Naive Bayes
+library(e1071)
+nb.fit <- naiveBayes(marriage_candidate ~ gender + sexuality + age, data = stardew_data, subset = train)
+nb.fit
+nb.class <- predict(nb.fit, test_data)
+table(nb.class, test_data$marriage_candidate)
+mean(nb.class == test_data$marriage_candidate)
+```

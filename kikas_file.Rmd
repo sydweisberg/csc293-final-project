@@ -11,17 +11,18 @@ stardew_all <- read.csv("stardew_all.csv") |> select(!Timestamp) |> mutate(from 
 stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(from = "Smith")
 
 stardew_data <- rbind(stardew_all, stardew_smith)
+stardew_data <- stardew_data |> filter(gender != "Other")
 ```
 ```{r}
 # separating the data into train and test data
 set.seed(1) # set seed
 
-indices <- sample(seq(118), 82) # find 82 random indices
+indices <- sample(seq(155), 108) # find 108 random indices
 
-train <- stardew_data[indices,] # use those 100 indices for training data
+train <- stardew_data[indices,] # use those indices for training data
 
 test_data <- stardew_data[-indices,] # use all the other ones for testing
-test_marriage <- stardew_data$marriage_candidate[-indices] # get true marraige candidates for testing
+test_marriage <- stardew_data$marriage_candidate[-indices] # get true marriage candidates for testing
 ```
 ### Logistic Regression
 ```{r}
