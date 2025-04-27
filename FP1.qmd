@@ -20,7 +20,7 @@ stardew_data <- stardew_data |> filter(gender != "Other")
 # separating the data into train and test data
 set.seed(1) # set seed
 
-indices <- sample(seq(155), 108) # find 108 random indices
+indices <- sample(seq(152), 106) # find 108 random indices
 
 train <- stardew_data[indices,] # use those indices for training data
 
