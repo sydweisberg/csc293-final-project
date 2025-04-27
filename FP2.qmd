@@ -1,0 +1,47 @@
+---
+title: "FP2"
+format: pdf
+editor: visual
+---
+
+## Loading and Cleaning the Data
+
+```{r, warning=FALSE, message=FALSE}
+# reading in csvs and creating df
+library(tidyverse)
+
+stardew_all <- read.csv("stardew_all.csv") |> select(!Timestamp) |> mutate(from = "All")
+stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(from = "Smith")
+
+stardew_data <- rbind(stardew_all, stardew_smith)
+
+stardew_data <- stardew_data |> filter(gender != "Other")
+```
+
+## Splitting Up Data for Cross Validation
+
+```{r}
+# separating the data into train and test data
+set.seed(1) # set seed
+
+indices <- sample(seq(152), 106) # find 108 random indices
+
+train <- stardew_data[indices,] # use those indices for training data
+
+test_data <- stardew_data[-indices,] # use all the other ones for testing
+test_marriage <- stardew_data$marriage_candidate[-indices] # get true marriage candidates for testing
+```
+
+## Naive Bayes Model
+
+```{r}
+# Naive Bayes
+library(e1071)
+train <- indices
+nb.fit <- naiveBayes(marriage_candidate ~ gender + sexuality + age, data = stardew_data, subset = train)
+nb.fit
+nb.class <- predict(nb.fit, test_data)
+table(nb.class, test_data$marriage_candidate)
+mean(nb.class == test_data$marriage_candidate)
+```
+
