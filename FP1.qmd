@@ -148,3 +148,15 @@ new_data <- data.frame(gender = Gender,
 # Change up the parameters to make a prediction!
 predict_marriage_candidate("Female", "Lesbian", "Single", "Cooking", "Fishing", "Summer", 2, "Robin")
 ```
+
+```{r}
+# using random forest gives us 17%
+library(randomForest)
+set.seed(1)
+train$marriage_candidate <- as.factor(train$marriage_candidate)
+bag.stardew <- randomForest(marriage_candidate ~ ., data = train, mtry = 11, importance = TRUE)
+
+yhat.bag <- predict(bag.stardew, newdata = test_data)
+mean(yhat.bag == test_data$marriage_candidate)
+```
+
