@@ -20,7 +20,7 @@ stardew_data <- stardew_data |> filter(gender != "Other")
 # separating the data into train and test data
 set.seed(1) # set seed
 
-indices <- sample(seq(155), 108) # find 108 random indices
+indices <- sample(seq(152), 106) # find 108 random indices
 
 train <- stardew_data[indices,] # use those indices for training data
 
@@ -47,9 +47,9 @@ selected_model
 # Emma's KNN
 # predicts right 25%, so not ideal
 library(class)
-X <- model.matrix(~ sexuality + non_marriage_candidate + gender + from - 1, data = stardew_data)
+X <- model.matrix(~sexuality + non_marriage_candidate + gender + from, data = stardew_data)
 
-X <- cbind(X, playtime = as.numeric(stardew_data$playtime))
+X <- cbind(X, playtime = stardew_data$playtime)
 
 train.X <- X[indices, ]
 test.X <- X[-indices, ]
