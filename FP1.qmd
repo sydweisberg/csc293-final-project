@@ -161,4 +161,14 @@ bag.stardew <- randomForest(marriage_candidate ~ ., data = train, mtry = 11, imp
 yhat.bag <- predict(bag.stardew, newdata = test_data)
 mean(yhat.bag == test_data$marriage_candidate)
 ```
+```{r}
+# backward selection
+full.model <- multinom(marriage_candidate ~ ., data = train)
+# stepAIC(full.model, direction = "backward")
+selected_model <- multinom(marriage_candidate ~ gender + sexuality +relationship + hobbies + personality + season + from, data = train)
+yhat.selected <- predict(selected_model, newdata = test_data)
+mean(yhat.selected == test_data$marriage_candidate)
+
+```
+
 
