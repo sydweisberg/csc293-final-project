@@ -18,6 +18,24 @@ stardew_data <- rbind(stardew_all, stardew_smith)
 stardew_data <- stardew_data |> filter(gender != "Other")
 ```
 
+
+## Distribution of The Data
+```{r echo=FALSE}
+library(ggplot2)
+ggplot(data = stardew_data, aes(x = marriage_candidate, fill = from)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + labs(title = "Marriage Choices by Data Source", x = "Marriage Choice", y = "Count") + scale_fill_manual(values = c("#151152", "#B52121"))
+```
+```{r echo=FALSE}
+ggplot(data = stardew_data, aes(x=age, color=gender)) +
+  geom_freqpoly(binwidth = 10, size = 1.25) +
+  scale_color_manual(values = c('#6B3710', '#DDA059', '#59C9F1')) + theme_minimal() + labs(title = "Age Distribution By Gender")
+```
+
+```{r}
+sexuality_freq <- table(stardew_data$sexuality)
+pie(sexuality_freq, cex=.75, radius = 1, col = c('#59C9F1', '#151152', '#B52121', '#6B3710', '#FFD921'))
+```
+
+
 ## Splitting Up Data for Cross Validation
 
 ```{r}
@@ -44,4 +62,3 @@ nb.class <- predict(nb.fit, test_data)
 table(nb.class, test_data$marriage_candidate)
 mean(nb.class == test_data$marriage_candidate)
 ```
-
