@@ -15,15 +15,17 @@ stardew_smith <- read.csv("stardew_smith.csv") |> select(!Timestamp) |> mutate(f
 
 stardew_data <- rbind(stardew_all, stardew_smith)
 
+# filtering out observations where gender == "Other"
 stardew_data <- stardew_data |> filter(gender != "Other")
 ```
 
-
 ## Distribution of The Data
+
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
 ggplot(data = stardew_data, aes(x = marriage_candidate, fill = from)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + labs(title = "Marriage Choices by Data Source", x = "Marriage Choice", y = "Count") + scale_fill_manual(values = c("#151152", "#B52121"))
 ```
+
 ```{r echo=FALSE}
 ggplot(data = stardew_data, aes(x=age, color=gender)) +
   geom_freqpoly(binwidth = 10, size = 1.25) +
@@ -35,18 +37,17 @@ sexuality_freq <- table(stardew_data$sexuality)
 pie(sexuality_freq, cex=.75, radius = 1, col = c('#59C9F1', '#151152', '#B52121', '#6B3710', '#FFD921'), main = "Sexuality Distribution")
 ```
 
-
 ## Splitting Up Data for Cross Validation
 
 ```{r}
 # separating the data into train and test data
 set.seed(1) # set seed
 
-indices <- sample(seq(152), 106) # find 108 random indices
+indices <- sample(seq(152), 106) # find 106 random indices (70% train data, 30% test data)
 
 train <- stardew_data[indices,] # use those indices for training data
 
-test_data <- stardew_data[-indices,] # use all the other ones for testing
+test_data <- stardew_data[-indices,] # use all the other indices for testing
 test_marriage <- stardew_data$marriage_candidate[-indices] # get true marriage candidates for testing
 ```
 
@@ -56,10 +57,13 @@ test_marriage <- stardew_data$marriage_candidate[-indices] # get true marriage c
 # Naive Bayes
 library(e1071)
 train <- indices
+# fit Naive Bayes model
 nb.fit <- naiveBayes(marriage_candidate ~ gender + sexuality + age, data = stardew_data, subset = train)
+# display nb model summary
 nb.fit
-nb.class <- predict(nb.fit, test_data)
-table(nb.class, test_data$marriage_candidate)
-mean(nb.class == test_data$marriage_candidate)
+nb.class <- predict(nb.fit, test_data) # use nb model on test data to predict marriage candidate
+table(nb.class, test_data$marriage_candidate) # nb model predictions are compared to real observations
+mean(nb.class == test_data$marriage_candidate) # proportion of correct predictions is calculated
 ```
-Our Naive Bayes model correctly predicts marriage candidate 26% of the time. 
+
+Our Naive Bayes model correctly predicts marriage candidate 26% of the time.
