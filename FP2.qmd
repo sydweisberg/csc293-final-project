@@ -1,7 +1,19 @@
 ---
 title: "FP2"
-format: pdf
-editor: visual
+author: "Kika Kovaleski, Molly Daniel, Emma Ruckle, Caroline Zouloumian, Sydney Weisberg"
+format: 
+  pdf:
+    keep-tex: true
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+    geometry: 
+      - left=1in
+      - right=1in
+      - top=1in
+      - bottom=1in
 ---
 
 ## Loading and Cleaning the Data
